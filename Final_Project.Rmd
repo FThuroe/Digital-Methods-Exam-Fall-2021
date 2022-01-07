@@ -1,0 +1,197 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+Frederik Thurøe
+
+Teoriorientered Metode - Digital Methods For Historians, Final Project 
+
+```{r libraries, echo = FALSE}
+#install.packages("gganimate")
+#install.packages("gifski")
+#install.packages("av")
+#install.packages("gapminder")
+#install.packages("tidyverse")
+#install.packages("dplyr")
+#install.packages("tidyr")
+#install.packages("ggplot2")
+library(ggplot2)
+library(tidyverse)
+library(gganimate)
+library(gifski)
+library(av)
+library(gapminder)
+library(dplyr)
+library(tidyr)
+```
+
+
+```{r, echo = FALSE}
+rm(list = ls()[grep("^anim", ls())])
+```
+
+
+#Uploading Tidy_data_numbers_2000
+```{r}
+library(readr)
+Tidy_data_numbers_2000 <- read_csv("Tidy_data_numbers_2000.csv", show_col_types = FALSE,
+    col_types = cols(Armed_forces_personnel = col_double()))
+head(Tidy_data_numbers_2000)
+```
+
+#Uploading Tidy_data_europe
+```{r}
+library(readr)
+Tidy_data_europe <- read_csv("Tidy_data_europe.csv", show_col_types = FALSE)
+head(Tidy_data_europe)
+```
+
+#Uploading Miltary_Expenditure_tidy_2020 
+```{r}
+library(readr)
+Miltary_Expenditure_tidy_2020 <- read_csv("Miltary_Expenditure_tidy_2020.csv", show_col_types = FALSE)
+head(Miltary_Expenditure_tidy_2020)
+```
+
+#Graph1: Armed forces personel vs. GDP Growth in 2000
+```{r}
+Graph1 <- ggplot() + 
+  geom_point(aes(y = Armed_forces_personnel/100, x = GDP_growth/100, size = Size, color = Country_Name), data = Tidy_data_numbers_2000) + 
+  ylab("Armed Forces Personel in % of Population") + 
+  xlab("Annual GDP Growth in %") + 
+  ggtitle("Armed Forces Personel vs Annual Growth in 2000") +
+scale_y_continuous(label = scales::percent) + scale_x_continuous(label = scales::percent)
+
+theme_set(theme_bw())
+
+options(scipen = 999)
+```
+```{r}
+Graph1
+```
+
+
+
+
+#Graph2: Military spending vs. GDP Growth in 2000
+```{r} 
+theme_set(theme_bw())
+
+options(scipen = 999)
+
+Graph2 <- ggplot() + 
+  geom_point(aes(y = Military_expenditure/100, x = GDP_growth/100, size = Size, color = Country_Name), data = Tidy_data_numbers_2000) + 
+  ylab("Military Expenditure as % of GDP") + 
+  xlab("Annual GDP Growth in %") + 
+  ggtitle("Military Expenditure vs. Annual Growth in 2000") +
+scale_y_continuous(label = scales::percent) + scale_x_continuous(label = scales::percent)
+```
+
+```{r}
+Graph2
+```
+
+
+
+
+#Graph3: Military spending vs. armed forces personel in 2000 
+```{r} 
+theme_set(theme_bw())
+
+options(scipen = 999)
+
+Graph3 <- ggplot() + 
+  geom_point(aes(y = Military_expenditure/100, x = Armed_forces_personnel/100, size = Size, color = Country_Name), data = Tidy_data_numbers_2000) +
+  ylab("Military Expenditure as % of GDP") + 
+  xlab("Armed Forces Personel in % of Population") + 
+  ggtitle("Military Expenditure vs. Armed Forces Personnel in 2000") +
+scale_y_continuous(label = scales::percent) + scale_x_continuous(label = scales::percent)
+```
+```{r}
+Graph3
+```
+
+#Graph4: Armed forces personel vs. GDP Growth in Europe in 2000
+```{r}
+theme_set(theme_bw())
+
+options(scipen = 999)
+
+Graph4 <- ggplot() + 
+  geom_point(aes(y = Armed_forces_personnel/100, x = GDP_growth/100, size = Size, color = Region), data = Tidy_data_europe) + 
+  ylab("Armed Forces Personel in % of Population") + 
+  xlab("Annual GDP Growth in %") + 
+  ggtitle("Annual Growth vs. Armed Forces Personel in Europe in 2000") +
+scale_y_continuous(label = scales::percent) + scale_x_continuous(label = scales::percent)
+```
+
+```{r}
+Graph4
+```
+
+#Graph5: Military spending vs. GDP Growth in Europe in 2000
+```{r} 
+theme_set(theme_bw())
+
+options(scipen = 999)
+
+Graph5 <- ggplot() + 
+  geom_point(aes(y = Military_expenditure/100, x = GDP_growth/100, size = Size, color = Region), data = Tidy_data_europe) + 
+  ylab("Military Expenditure as % of GDP") + 
+  xlab("Annual GDP Growth in %") + 
+  ggtitle("Military Expenditure vs. Annual Growth in Europe in 2000") +
+scale_y_continuous(label = scales::percent) + scale_x_continuous(label = scales::percent)
+```
+```{r}
+Graph5
+```
+
+#Graph6: Military spending vs. armed forces personel in Europe in 2000
+```{r} 
+theme_set(theme_bw())
+
+options(scipen = 999)
+
+Graph6 <- ggplot() + 
+  geom_point(aes(y = Military_expenditure/100, x = Armed_forces_personnel/100, size = Size, color = Region), data = Tidy_data_europe) +
+  ylab("Military Expenditure as % of GDP") + 
+  xlab("Armed Forces Personel in % of Population") + 
+  ggtitle("Military Expenditure vs.Armed Forces Personnel in Europe in 2000") +
+scale_y_continuous(label = scales::percent) + scale_x_continuous(label = scales::percent)
+```
+```{r}
+Graph6
+```
+
+
+
+
+Noter: scale_size(range = c(0,500))
+
+scale_y_continuous(label = scales::percent) + scale_x_continuous(label = scales::percent)
+
+scale_y_continuous(limits=c(0, 4)) + scale_x_continuous(limits=c(3, 11))
+
+dt[,c(-x,-y)]
+
+
+
+
+
+#Graph7: Military spending vs. GDP Growth in 2020
+```{r} 
+theme_set(theme_bw())
+
+options(scipen = 999)
+
+Graph7 <- ggplot() + 
+  geom_point(aes(y = Military_expenditure/100, x = GDP_growth/100, size = Population, color = Region), data = Miltary_Expenditure_tidy_2020) + 
+  ylab("Military Expenditure as % of GDP") + 
+  xlab("Annual GDP Growth in %") + 
+  ggtitle("Military Expenditure vs. Annual Growth in Europe in 2020") +
+scale_y_continuous(label = scales::percent) + scale_x_continuous(label = scales::percent)
+```
+```{r}
+Graph7
+```
